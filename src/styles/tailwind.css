@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap');
+
+/* Cal Sans - loaded via @font-face */
+@font-face {
+  font-family: 'Cal Sans';
+  src: url('https://cdn.jsdelivr.net/npm/cal-sans@1.0.1/fonts/CalSans-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-bg: #0A0A0A;
+  --color-fg: #F0F0F0;
+  --color-mid: #888888;
+  --color-border: rgba(240, 240, 240, 0.08);
+  --color-border-strong: rgba(240, 240, 240, 0.15);
+  --font-logo: 'Cal Sans', sans-serif;
+  --font-headline: 'Old Standard TT', serif;
+  --font-ui: 'IBM Plex Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-ui);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: default;
+}
+
+/* ─── Grain / Noise Texture ─── */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.09;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
+/* ─── Animated Gradient Background ─── */
+@keyframes gradientDrift {
+  0%   {
+    --g1-x: 72%; --g1-y: 18%;
+    --g2-x: 28%; --g2-y: 78%;
+    --g3-x: 55%; --g3-y: 42%;
+  }
+  25%  {
+    --g1-x: 80%; --g1-y: 10%;
+    --g2-x: 18%; --g2-y: 85%;
+    --g3-x: 60%; --g3-y: 35%;
+  }
+  50%  {
+    --g1-x: 65%; --g1-y: 22%;
+    --g2-x: 32%; --g2-y: 72%;
+    --g3-x: 48%; --g3-y: 50%;
+  }
+  75%  {
+    --g1-x: 78%; --g1-y: 14%;
+    --g2-x: 22%; --g2-y: 80%;
+    --g3-x: 58%; --g3-y: 38%;
+  }
+  100% {
+    --g1-x: 72%; --g1-y: 18%;
+    --g2-x: 28%; --g2-y: 78%;
+    --g3-x: 55%; --g3-y: 42%;
+  }
+}
+
+@property --g1-x { syntax: '<percentage>'; inherits: false; initial-value: 72%; }
+@property --g1-y { syntax: '<percentage>'; inherits: false; initial-value: 18%; }
+@property --g2-x { syntax: '<percentage>'; inherits: false; initial-value: 28%; }
+@property --g2-y { syntax: '<percentage>'; inherits: false; initial-value: 78%; }
+@property --g3-x { syntax: '<percentage>'; inherits: false; initial-value: 55%; }
+@property --g3-y { syntax: '<percentage>'; inherits: false; initial-value: 42%; }
+
+.animated-gradient-bg {
+  background-color: #050505;
+  background-image:
+    /* Primary bright diagonal streak — upper right */
+    radial-gradient(ellipse 70% 45% at var(--g1-x) var(--g1-y),
+      rgba(230, 225, 215, 0.82) 0%,
+      rgba(180, 175, 165, 0.45) 30%,
+      rgba(80, 78, 72, 0.12) 60%,
+      transparent 80%
+    ),
+    /* Secondary bright pool — lower left */
+    radial-gradient(ellipse 60% 40% at var(--g2-x) var(--g2-y),
+      rgba(215, 210, 200, 0.72) 0%,
+      rgba(150, 145, 138, 0.38) 35%,
+      rgba(60, 58, 54, 0.10) 65%,
+      transparent 82%
+    ),
+    /* Mid connector — soft diagonal bridge */
+    radial-gradient(ellipse 90% 30% at var(--g3-x) var(--g3-y),
+      rgba(160, 155, 148, 0.28) 0%,
+      rgba(80, 78, 72, 0.10) 50%,
+      transparent 75%
+    ),
+    /* Deep black base */
+    #050505;
+  animation: gradientDrift 18s ease-in-out infinite;
+}
+
+/* ─── Typography Utilities ─── */
+.font-logo {
+  font-family: var(--font-logo);
+}
+
+.font-headline {
+  font-family: var(--font-headline);
+}
+
+.font-ui {
+  font-family: var(--font-ui);
+}
+
+/* ─── Hairline Border ─── */
+.border-hairline {
+  border-color: var(--color-border);
+}
+
+.border-hairline-strong {
+  border-color: var(--color-border-strong);
+}
+
+/* ─── Nav Link Hover ─── */
+.nav-link {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240, 240, 240, 0.5);
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: rgba(240, 240, 240, 1);
+}
+
+.nav-link:focus-visible {
+  outline: 1px solid rgba(240, 240, 240, 0.4);
+  outline-offset: 4px;
+}
+
+/* ─── EXPLORE Button ─── */
+.explore-btn {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(240, 240, 240, 0.6);
+  border: 1px solid rgba(240, 240, 240, 0.2);
+  padding: 14px 48px;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.explore-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(240, 240, 240, 0.04);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.explore-btn:hover::before {
+  transform: scaleX(1);
+}
+
+.explore-btn:hover {
+  color: rgba(240, 240, 240, 1);
+  border-color: rgba(240, 240, 240, 0.5);
+}
+
+.explore-btn:focus-visible {
+  outline: 1px solid rgba(240, 240, 240, 0.4);
+  outline-offset: 4px;
+}
+
+/* ─── Footer ─── */
+.footer-label {
+  font-family: var(--font-ui);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240, 240, 240, 0.25);
+}
+
+.footer-link {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: rgba(240, 240, 240, 0.45);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: block;
+  padding: 3px 0;
+  min-height: 28px;
+}
+
+.footer-link:hover {
+  color: rgba(240, 240, 240, 0.9);
+}
+
+.footer-link:focus-visible {
+  outline: 1px solid rgba(240, 240, 240, 0.3);
+  outline-offset: 3px;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(240, 240, 240, 0.15);
+}
+
+/* ─── Selection ─── */
+::selection {
+  background: rgba(240, 240, 240, 0.15);
+  color: #F0F0F0;
+}
+
+
+/* ─── Logo White ─── */
+.logo-white img,
+.logo-white {
+  filter: brightness(0) invert(1);
+}
+
+/* ─── Logo Footer (off-white #f0f0f0) ─── */
+.logo-footer img,
+.logo-footer {
+  filter: brightness(0) invert(1) opacity(0.94);
+}
