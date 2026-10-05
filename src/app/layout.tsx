@@ -5,6 +5,7 @@ import { AuthProvider }       from '@/context/AuthContext';
 import { CartProvider }       from '@/context/CartContext';
 import { HeroExitProvider }   from '@/context/HeroExitContext';
 import { LanguageProvider }   from '@/context/LanguageContext';
+import ScrollToTop from '@/components/ScrollToTop';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <AuthProvider>
+          <ScrollToTop />
           <LanguageProvider>
             <CartProvider>
               <HeroExitProvider>

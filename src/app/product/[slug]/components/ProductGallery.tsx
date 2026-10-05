@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import Image from 'next/image';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, type Variants } from 'framer-motion';
 import { useLang } from '@/context/LanguageContext';
 
 type GalleryImg = { id: string; src: string; alt: string; captionKey: 'img_iso' | 'img_int' | 'img_handle' | 'img_display' };
@@ -14,11 +14,11 @@ const GALLERY_IMAGES: GalleryImg[] = [
   { id: '004', src: '/product images/main3.jpg', alt: 'Vinculum — Digital status panel',       captionKey: 'img_display' },
 ];
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.14, delayChildren: 0.1 } },
 };
-const itemVariants = {
+const itemVariants: Variants = {
   hidden:  { opacity: 0, y: 32 },
   visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: [0.23, 1, 0.32, 1] } },
 };

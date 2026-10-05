@@ -10,6 +10,10 @@ import { useHeroExit } from '@/context/HeroExitContext';
 import { useLang }     from '@/context/LanguageContext';
 import { useAuth }     from '@/context/AuthContext';
 
+// Module-level flag: header drop-in animation should only play on the first
+// full load of the session, not on every client-side navigation.
+let headerAnimated = false;
+
 export default function Header() {
   const [scrolled,      setScrolled]      = useState(false);
   const [menuOpen,      setMenuOpen]      = useState(false);
@@ -23,6 +27,10 @@ export default function Header() {
   const router   = useRouter();
   const pathname = usePathname();
   const isHome   = pathname === '/';
+
+  useEffect(() => {
+    headerAnimated = true;
+  }, []);
 
   /* ── Scroll listener ──────────────────────────────────────────────────── */
   useEffect(() => {
@@ -113,7 +121,7 @@ export default function Header() {
   return (
     <>
       <motion.header
-        initial={{ opacity: 0, y: -16 }}
+        initial={headerAnimated ? false : { opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: [0.23, 1, 0.32, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${

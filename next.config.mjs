@@ -14,6 +14,7 @@ const nextConfig = {
   images: {
     remotePatterns: imageHosts,
     minimumCacheTTL: 60,
+    qualities: [75, 85],
     // Добавим это для стабильности, если используешь много картинок
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",

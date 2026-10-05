@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import GrainOverlay from '@/components/GrainOverlay';
@@ -10,7 +10,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useLang } from '@/context/LanguageContext';
 import { UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden:  { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1, y: 0,

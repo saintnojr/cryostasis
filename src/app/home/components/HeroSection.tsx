@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, type Variants } from 'framer-motion';
 import { useHeroExit } from '@/context/HeroExitContext';
 import { useLang }     from '@/context/LanguageContext';
 
@@ -277,11 +277,11 @@ function BackgroundBlobs() {
 /* ═══════════════════════════════════════════════════════════════════════════
    HERO SECTION
 ═══════════════════════════════════════════════════════════════════════════ */
-const containerVariants = {
+const containerVariants: Variants = {
   hidden:   {},
   visible:  { transition: { staggerChildren: 0.18, delayChildren: 0.5 } },
 };
-const fadeUpVariant = {
+const fadeUpVariant: Variants = {
   hidden:  { opacity: 0, y: 28 },
   visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.23, 1, 0.32, 1] } },
 };

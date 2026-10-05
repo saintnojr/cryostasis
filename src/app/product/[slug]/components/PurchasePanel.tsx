@@ -11,28 +11,28 @@ import { PRODUCT_SLUG } from '@/constants/navigation';
 const PRODUCT_SKU = `CRYO-${PRODUCT_SLUG.toUpperCase()}-01`;
 
 export default function PurchasePanel() {
-  const ref      = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-8% 0px' });
-  const [qty,   setQty]   = useState(1);
+  const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
 
-  const { addItem }                   = useCart();
-  const { t }                         = useLang();
-  const { product, loading, error }   = useProduct(PRODUCT_SKU);
-  const router                        = useRouter();
+  const { addItem } = useCart();
+  const { t } = useLang();
+  const { product, loading, error } = useProduct(PRODUCT_SKU);
+  const router = useRouter();
 
   // All values come from Firestore — no hardcode
-  const price    = product?.price    ?? null;
-  const name     = product?.name     ?? '—';
+  const price    = product?.price ?? null;
+  const name     = product?.name ?? '—';
   const subtitle = product?.subtitle ?? t('pp_subtitle');
   const currency = product?.currency ?? 'USD';
 
   const handleAdd = () => {
-    if (!product) return;
+    if (!product || !product.sku || !product.name || product.price === undefined) return;
     addItem({
       id:       product.sku,
       name:     product.name,
-      subtitle: product.subtitle,
+      subtitle: product.subtitle || '',
       price:    product.price,
     }, qty);
     setAdded(true);
@@ -110,7 +110,7 @@ export default function PurchasePanel() {
                 ) : (
                   <>
                     <span className="font-headline text-[clamp(1.8rem,4vw,3rem)] font-normal text-white/90">
-                      ${price?.toLocaleString()}
+                      ${price !== null ? price.toLocaleString() : '—'}
                     </span>
                     <span className="font-ui text-[9px] tracking-widest text-white/25 uppercase">{t('pp_usd')}</span>
                   </>
@@ -139,7 +139,7 @@ export default function PurchasePanel() {
                     initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }}
                     className="font-ui text-[13px] tracking-wider text-white/70"
                   >
-                    ${(price * qty).toLocaleString()} {currency}
+                    ${(price! * qty).toLocaleString()} {currency}
                   </motion.span>
                 </AnimatePresence>
               </div>
@@ -150,7 +150,7 @@ export default function PurchasePanel() {
               {/* Add to cart */}
               <motion.button
                 onClick={handleAdd}
-                disabled={loading || !product}
+                disabled={loading || !product || price === null}
                 className="w-full py-4 border border-white/25 text-white/70 hover:text-white hover:border-white/50 hover:bg-white/5 transition-all duration-300 uppercase text-[11px] tracking-[0.2em] disabled:opacity-30 disabled:cursor-not-allowed"
                 whileTap={{ scale: 0.98 }}
               >

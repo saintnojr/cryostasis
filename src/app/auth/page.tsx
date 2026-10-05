@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import GrainOverlay from '@/components/GrainOverlay';
@@ -17,13 +17,13 @@ const inputClass =
 
 const labelClass = 'block text-[9px] uppercase tracking-[0.22em] text-cryo-fg/30 mb-2.5';
 
-const formSwitch = {
+const formSwitch: Variants = {
   hidden:  { opacity: 0, y: 14 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.23, 1, 0.32, 1] } },
   exit:    { opacity: 0, y: -10, transition: { duration: 0.22, ease: 'easeIn' } },
 };
 
-const fieldIn = {
+const fieldIn: Variants = {
   hidden:  { opacity: 0, y: 12 },
   visible: (i: number) => ({
     opacity: 1, y: 0,
