@@ -17,6 +17,9 @@ Dark. Monochrome. Deliberately slow.
 
 ---
 
+<img width="1280" height="607" alt="ezgif-1337b3c41aa752cd" src="https://github.com/user-attachments/assets/33cd85c8-73cb-4fd4-b652-6793da7409c1" />
+
+
 ## About
 
 CryoStasis is a fully functional online store built around a fictional cryonics
