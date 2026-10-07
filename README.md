@@ -17,9 +17,6 @@ Dark. Monochrome. Deliberately slow.
 
 ---
 
-<img width="1280" height="607" alt="ezgif-1337b3c41aa752cd" src="https://github.com/user-attachments/assets/33cd85c8-73cb-4fd4-b652-6793da7409c1" />
-
-
 ## About
 
 CryoStasis is a fully functional online store built around a fictional cryonics
@@ -43,6 +40,10 @@ offscreen canvas, luminance is sampled per grid cell, and a character from a
 curated charset (`@#S%?*+;:,.`) is chosen to match the brightness. Entry and
 exit are choreographed — when the user proceeds to the product, both canvases
 play a synchronized outro before the route transition fires.
+
+<img width="1280" height="607" alt="ezgif-1337b3c41aa752cd" src="https://github.com/user-attachments/assets/540dfb0a-e7a4-4a27-acb7-535fb38f788e" />
+
+<img width="1280" height="607" alt="ezgif-15a2c59da356cef1" src="https://github.com/user-attachments/assets/b783c121-1d9a-4c0c-88ca-e8611d3ccf7a" />
 
 **Choreographed transitions.** Navigation is synchronous with animation. The
 hero registers an exit handler through context; the header awaits both canvas
